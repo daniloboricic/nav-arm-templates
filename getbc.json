@@ -55,8 +55,8 @@
             "type": "string",
             "defaultValue": "Windows Server 2025",
             "allowedValues": [
-		"Windows Server 2025",   
-                "Windows Server 2022",
+		"Windows Server 2025"
+                
                 
             ],
             "metadata": {
@@ -364,7 +364,7 @@
         "OperatingSystem": "[parameters('OperatingSystem')]",
         "imagePublisher": "[if(equals(variables('OperatingSystem'),'Windows 11'),'MicrosoftWindowsDesktop','MicrosoftWindowsServer')]",
         "imageOffer": "[if(equals(variables('OperatingSystem'),'Windows 11'),'Windows-11','WindowsServer')]",
-        "imageSku": "[if(equals(variables('OperatingSystem'),'Windows 11'),'win11-21h2-pro',if(equals(variables('OperatingSystem'),'Windows Server 2022'),'2022-Datacenter'))]",
+        "imageSku": "2025-Datacenter",
         "storageAccountType": "Premium_LRS",
         "OSDiskName": "[concat(variables('vmName'),'_osdisk')]",
         "publicIPAddressName": "[concat(variables('vmName'), '_pip')]",
