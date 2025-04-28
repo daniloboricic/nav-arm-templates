@@ -850,7 +850,7 @@
             "properties": {
               "privateIPAllocationMethod": "Dynamic",
               "subnet": {
-                "id": "[subscriptionResourceId(parameters('networkRG'), 'Microsoft.Network/virtualNetworks', parameters('vnetName'), 'subnets', parameters('subnetName'))]"
+                "id": "[ResourceId(parameters('networkRG'), 'Microsoft.Network/virtualNetworks', parameters('vnetName'), 'subnets', parameters('subnetName'))]"
               },
               "publicIPAddress": {
                 "id": "[resourceId('Microsoft.Network/publicIPAddresses', concat(parameters('vmName'), '_pip'))]"
