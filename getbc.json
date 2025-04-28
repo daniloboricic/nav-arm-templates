@@ -838,28 +838,39 @@
 			}
 		},
         
-    {
-      "type": "Microsoft.Network/networkInterfaces",
-      "apiVersion": "2018-11-01",
-      "name": "[concat(parameters('vmName'), '_nic')]",
-      "location": "[resourceGroup().location]",
-      "properties": {
-        "ipConfigurations": [
-          {
-            "name": "ipconfig1",
+        {
+            "type": "Microsoft.Network/networkInterfaces",
+            "apiVersion": "2018-11-01",
+            "name": "[concat(parameters('vmName'), '_nic')]",
+            "location": "[resourceGroup().location]",
             "properties": {
-              "privateIPAllocationMethod": "Dynamic",
-              "subnet": {
-                "id": "[ResourceId(parameters('networkRG'), 'Microsoft.Network/virtualNetworks', parameters('vnetName'), 'subnets', parameters('subnetName'))]"
-              },
-              "publicIPAddress": {
-                "id": "[resourceId('Microsoft.Network/publicIPAddresses', concat(parameters('vmName'), '_pip'))]"
-              }
+                "ipConfigurations": [
+                {
+                    "name": "ipconfig1",
+                    "properties": {
+                    "privateIPAllocationMethod": "Dynamic",
+                    "subnet": {
+                        "id": "[resourceId(
+                        subscription().subscriptionId,
+                        parameters('networkRG'),
+                        'Microsoft.Network/virtualNetworks/subnets',
+                        parameters('vnetName'),
+                        parameters('subnetName')
+                        )]"
+                    },
+                    "publicIPAddress": {
+                        "id": "[resourceId(
+                        resourceGroup().name,
+                        'Microsoft.Network/publicIPAddresses',
+                        concat(parameters('vmName'), '_pip')
+                        )]"
+                    }
+                    }
+                }
+                ]
             }
-          }
-        ]
-      }
-    },
+        },
+
 
         {
             "apiVersion": "2018-10-01",
