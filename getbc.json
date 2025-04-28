@@ -387,7 +387,7 @@
         
         "networkSecurityGroupName": "[concat('networksecuritygroup',if(equals(parameters('AddTraefik'),'Yes'),'_traefik',''))]",
         "dnsName": "[tolower(variables('vmName'))]",
-        
+        "storageAccountName": "[concat('storage', uniqueString(resourceGroup().id))]",
         "server1Name": "[tolower(variables('vmName'))]",
         "nic1Name": "[concat(variables('vmName'),'_nic')]",
         "delimiters": [ ",", ";" ],
@@ -404,6 +404,19 @@
 		"SqlCollation": "Latin1_General_100_CS_AS"
     },
     "resources": [
+		    {
+	            "apiVersion": "2019-04-01",
+	            "type": "Microsoft.Storage/storageAccounts",
+	            "name": "[variables('storageAccountName')]",
+	            "sku": {
+	                "name": "[variables('storageAccountType')]"
+	            },
+	            "kind": "StorageV2",
+	            "location": "[resourceGroup().location]",
+	            "properties": {
+	                "supportsHttpsTrafficOnly": true
+	            }
+	        },
 		{
 			"apiVersion": "2014-04-01-preview",
 			"type": "Microsoft.Sql/servers",
