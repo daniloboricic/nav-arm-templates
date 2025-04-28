@@ -387,10 +387,7 @@
         "storageAccountName": "[concat('storage', uniqueString(resourceGroup().id))]",
         "networkSecurityGroupName": "[concat('networksecuritygroup',if(equals(parameters('AddTraefik'),'Yes'),'_traefik',''))]",
         "dnsName": "[tolower(variables('vmName'))]",
-        "addressPrefix": "10.0.0.0/16",
-        "subnetName": "Subnet",
-        "subnetPrefix": "10.0.0.0/24",
-        "virtualNetworkName": "[parameters]",
+        
         "server1Name": "[tolower(variables('vmName'))]",
         "nic1Name": "[concat(variables('vmName'),'_nic')]",
         "delimiters": [ ",", ";" ],
@@ -400,8 +397,7 @@
         "winRmAddresses": "[if(equals(variables('WinRmAccess'),'-'),'',variables('WinRmAccess'))]",
 		"winRmSourceAddressPrefix": "[split(variables('winRmAddresses'),variables('delimiters'))]",
 		"noOfWinRmAddresses": "[length(variables('winRmSourceAddressPrefix'))]",
-        "vnetID": "[resourceId('Microsoft.Network/virtualNetworks',variables('virtualNetworkName'))]",
-        "subnetRef": "[concat(variables('vnetID'),'/subnets/',variables('subnetName'))]",
+        
         "ScriptCommandToExecute": "powershell.exe -executionpolicy unrestricted -file ",
         "azureSqlServer": "[concat('sql', replace(tolower(variables('vmName')),'-',''))]",
         "azureSqlServerDnsName": "[concat(variables('azureSqlServer'),'.database.windows.net')]",
