@@ -63,7 +63,7 @@
                 "Description": "Select the Operating System of the VM"
             }
         },
-        "networkRG": {
+         "networkRG": {
             "type": "string",
             "metadata": {
                 "description": "The resource group that contains your virtual network (e.g. Networking-RG)"
@@ -390,10 +390,10 @@
         "storageAccountType": "Premium_LRS",
         "OSDiskName": "[concat(variables('vmName'),'_osdisk')]",
         "publicIPAddressName": "[concat(variables('vmName'), '_pip')]",
-        "storageAccountName": "[concat('storage', uniqueString(resourceGroup().id))]",
+        
         "networkSecurityGroupName": "[concat('networksecuritygroup',if(equals(parameters('AddTraefik'),'Yes'),'_traefik',''))]",
         "dnsName": "[tolower(variables('vmName'))]",
-        
+        "storageAccountName": "[concat('storage', uniqueString(resourceGroup().id))]",
         "server1Name": "[tolower(variables('vmName'))]",
         "nic1Name": "[concat(variables('vmName'),'_nic')]",
         "delimiters": [ ",", ";" ],
@@ -410,6 +410,19 @@
 		"SqlCollation": "Latin1_General_100_CS_AS"
     },
     "resources": [
+		    {
+	            "apiVersion": "2019-04-01",
+	            "type": "Microsoft.Storage/storageAccounts",
+	            "name": "[variables('storageAccountName')]",
+	            "sku": {
+	                "name": "[variables('storageAccountType')]"
+	            },
+	            "kind": "StorageV2",
+	            "location": "[resourceGroup().location]",
+	            "properties": {
+	                "supportsHttpsTrafficOnly": true
+	            }
+	        },
 		{
 			"apiVersion": "2014-04-01-preview",
 			"type": "Microsoft.Sql/servers",
@@ -837,7 +850,7 @@
             "properties": {
               "privateIPAllocationMethod": "Dynamic",
               "subnet": {
-               "id": "[subscriptionResourceId(parameters('networkRG'), 'Microsoft.Network/virtualNetworks', parameters('vnetName'), 'subnets', parameters('subnetName'))]"
+                "id": "[subscriptionResourceId(parameters('networkRG'), 'Microsoft.Network/virtualNetworks', parameters('vnetName'), 'subnets', parameters('subnetName'))]"
               },
               "publicIPAddress": {
                 "id": "[resourceId('Microsoft.Network/publicIPAddresses', concat(parameters('vmName'), '_pip'))]"
