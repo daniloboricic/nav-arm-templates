@@ -66,16 +66,16 @@
         "vnetName": {
             "type": "string",
             "metadata": {
-                "description": "Select the virtual network"
+                "description": "VNet1-hardcode"
             },
-            "allowedValues": "[list(resourceGroup().id, 'Microsoft.Network/virtualNetworks').value[*].name]"
+            "allowedValues": ["VNet1"]
         },
         "subnetName": {
             "type": "string",
             "metadata": {
-                "description": "Select the subnet"
+                "description": "Subnet1-hardcode"
             },
-            "allowedValues": "[list(resourceId(resourceGroup().name, 'Microsoft.Network/virtualNetworks', parameters('vnetName')), '2020-11-01').subnets[*].name]"
+            "allowedValues": ["Subnet-1"]
         },
 
 
