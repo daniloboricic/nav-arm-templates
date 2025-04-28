@@ -384,7 +384,7 @@
         "storageAccountType": "Premium_LRS",
         "OSDiskName": "[concat(variables('vmName'),'_osdisk')]",
         "publicIPAddressName": "[concat(variables('vmName'), '_pip')]",
-        "storageAccountName": "[concat('storage', uniqueString(resourceGroup().id))]",
+        
         "networkSecurityGroupName": "[concat('networksecuritygroup',if(equals(parameters('AddTraefik'),'Yes'),'_traefik',''))]",
         "dnsName": "[tolower(variables('vmName'))]",
         
